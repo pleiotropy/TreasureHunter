@@ -121,8 +121,11 @@ public class TreasureHunter
             // When a hunter loses all their gold through a brawl, the game should end and an
             // appropriate message should be printed.
             if (choice.equals("L") && (hunterGoldBeforeBrawl > 0) && (hunter.getGold() == 0)) {
+                System.out.println(currentTown.getLatestNews());
                 System.out.println("You lost all of your gold in the brawl.");
+                System.out.println("*******************");
                 System.out.println(" G A M E   O V E R ");
+                System.out.println("*******************");
                 choice = "X";
             }
             if (!choice.equals("L")) {
