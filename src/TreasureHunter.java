@@ -110,12 +110,21 @@ public class TreasureHunter
             System.out.println("(S)ell something at the shop.");
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
+            System.out.println("(H)unt for treasure!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
             choice = scanner.nextLine();
             choice = choice.toUpperCase();
+            int hunterGoldBeforeBrawl = hunter.getGold();
             processChoice(choice);
+            // When a hunter loses all their gold through a brawl, the game should end and an
+            // appropriate message should be printed.
+            if (choice.equals("L") && (hunterGoldBeforeBrawl > 0) && (hunter.getGold() == 0)) {
+                System.out.println("You lost all of your gold in the brawl.");
+                System.out.println(" G A M E   O V E R ");
+                choice = "X";
+            }
             if (!choice.equals("L")) {
                 System.out.print("Hit Enter to continue! ");
                 scanner.nextLine();
