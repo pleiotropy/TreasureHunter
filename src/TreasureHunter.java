@@ -46,7 +46,7 @@ public class TreasureHunter
         String name = scanner.nextLine();
 
         // set hunter instance variable
-        hunter = new Hunter(name, 10);
+        hunter = new Hunter(name, 100);
 
         System.out.print("Hard mode? (y/n): ");
         String hard = scanner.nextLine();
@@ -87,6 +87,7 @@ public class TreasureHunter
         // constructor for Town, but this illustrates another way to associate
         // an object with an object of a different class
         currentTown.hunterArrives(hunter);
+
     }
 
     /**
@@ -118,8 +119,8 @@ public class TreasureHunter
             choice = choice.toUpperCase();
             int hunterGoldBeforeBrawl = hunter.getGold();
             processChoice(choice);
-            // When a hunter loses all their gold through a brawl, the game should end and an
-            // appropriate message should be printed.
+            // TH-1: When a hunter loses all their gold through a brawl, the game should end
+            // and an appropriate message should be printed.
             if (choice.equals("L") && (hunterGoldBeforeBrawl > 0) && (hunter.getGold() == 0)) {
                 System.out.println(currentTown.getLatestNews());
                 System.out.println("You lost all of your gold in the brawl.");
@@ -127,6 +128,17 @@ public class TreasureHunter
                 System.out.println(" G A M E   O V E R ");
                 System.out.println("*******************");
                 choice = "X";
+            }
+            if (choice.equals("H"))
+            {
+                if (Treasure.allTreasuresFound())
+                {
+                    System.out.println("You have found all three treasures!");
+                    System.out.println("*******************");
+                    System.out.println("  Y O U   W I N  ! ");
+                    System.out.println("*******************");
+                    choice = "X";
+                }
             }
             if (!choice.equals("L")) {
                 System.out.print("Hit Enter to continue! ");
@@ -158,6 +170,10 @@ public class TreasureHunter
         else if (choice.equals("L") || choice.equals("l"))
         {
             currentTown.lookForTrouble();
+        }
+        else if (choice.equals("H") || choice.equals("h"))
+        {
+            currentTown.huntForTreasure();
         }
         else if (choice.equals("X") || choice.equals("x"))
         {

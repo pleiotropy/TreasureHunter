@@ -8,8 +8,10 @@ public class Town
     private Hunter hunter;
     private Shop shop;
     private Terrain terrain;
+    private Treasure treasure;
     private String printMessage;
     private boolean toughTown;
+    private boolean huntedForTreasure;
 
     //Constructor
     /**
@@ -21,6 +23,8 @@ public class Town
     {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        treasure = getNewTreasure();
+        huntedForTreasure = false;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -121,6 +125,53 @@ public class Town
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                 printMessage += "\nYou lost the brawl and pay " +  goldDiff + " gold.";
                 hunter.changeGold(-1 * goldDiff);
+            }
+        }
+    }
+
+    /**
+     * Chooses one of three treasures randomly for the town.
+     * @return A Treasure object.
+     */
+    public Treasure getNewTreasure()
+    {
+        double rnd = Math.random();
+        if (rnd < 0.33)
+        {
+            return new Treasure("a glittery gem");
+        }
+        else if (rnd < 0.66)
+        {
+            return new Treasure("more gold than you can carry");
+        }
+        else
+        {
+            return new Treasure("a computer");
+        }
+    }
+
+    /**
+     * When a hunter searches for a treasure they can either find one of the treasures,
+     * or find nothing. There should be an equal chance for each option.
+     */
+    public void huntForTreasure()
+    {
+        if (huntedForTreasure)
+        {
+            System.out.println("You already hunted for treasure here. Move on to another town.");
+        }
+        else
+        {
+            huntedForTreasure = true;
+            double rnd = Math.random();
+            if (rnd < .5)
+            {
+                System.out.println("You found a treasure! It's " + treasure + "!");
+                Treasure.markTreasureAsFound(treasure.toString());
+            }
+            else
+            {
+                System.out.println("You did not find any treasure.");
             }
         }
     }
