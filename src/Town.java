@@ -164,7 +164,7 @@ public class Town
         {
             huntedForTreasure = true;
             double rnd = Math.random();
-            if (rnd < .5)
+            if (rnd < .75)
             {
                 System.out.println("You found a treasure! It's " + treasure + "!");
                 Treasure.markTreasureAsFound(treasure.toString());

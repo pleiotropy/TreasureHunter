@@ -185,6 +185,7 @@ public class Hunter
         {
             str += " and " + getInventory();
         }
+        // would like to add a list of treasures the hunter has found
         return str;
     }
 }

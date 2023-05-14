@@ -6,12 +6,14 @@ public class Treasure {
     private String treasureType;
 
     // static variables
-    private static boolean foundGem, foundGold, foundComputer;
+    private static boolean foundGem = false;
+    private static boolean foundGold = false;
+    private static boolean foundComputer = false;
 
     // constructor(s)
     // create a new treasure in the town when hunter enters the town
-    public Treasure(String type) {
-        treasureType = type;
+    public Treasure(String treasureType) {
+        this.treasureType = treasureType;
     }
 
     // methods

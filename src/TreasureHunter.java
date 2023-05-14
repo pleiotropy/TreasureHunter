@@ -46,7 +46,7 @@ public class TreasureHunter
         String name = scanner.nextLine();
 
         // set hunter instance variable
-        hunter = new Hunter(name, 100);
+        hunter = new Hunter(name, 10);
 
         System.out.print("Hard mode? (y/n): ");
         String hard = scanner.nextLine();
@@ -117,11 +117,10 @@ public class TreasureHunter
             System.out.print("What's your next move? ");
             choice = scanner.nextLine();
             choice = choice.toUpperCase();
-            int hunterGoldBeforeBrawl = hunter.getGold();
             processChoice(choice);
             // TH-1: When a hunter loses all their gold through a brawl, the game should end
             // and an appropriate message should be printed.
-            if (choice.equals("L") && (hunterGoldBeforeBrawl > 0) && (hunter.getGold() == 0)) {
+            if (choice.equals("L") && (hunter.getGold() == 0)) {
                 System.out.println(currentTown.getLatestNews());
                 System.out.println("You lost all of your gold in the brawl.");
                 System.out.println("*******************");
