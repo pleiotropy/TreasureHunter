@@ -142,7 +142,7 @@ public class Town
         }
         else if (rnd < 0.66)
         {
-            return new Treasure("more gold than you can carry");
+            return new Treasure("bananas");
         }
         else
         {

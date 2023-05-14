@@ -7,7 +7,7 @@ public class Treasure {
 
     // static variables
     private static boolean foundGem = false;
-    private static boolean foundGold = false;
+    private static boolean foundBananas = false;
     private static boolean foundComputer = false;
 
     // constructor(s)
@@ -24,7 +24,7 @@ public class Treasure {
         {
             return true;
         }
-        if (treasure.equals("more gold than you can carry") && foundGold)
+        if (treasure.equals("bananas") && foundBananas)
         {
             return true;
         }
@@ -44,14 +44,15 @@ public class Treasure {
             {
                 foundGem = true;
             }
-            else if (treasure.equals("more gold than you can carry"))
+            else if (treasure.equals("bananas"))
             {
-                foundGold = true;
+                foundBananas = true;
             }
             else
             {
                 foundComputer = true;
             }
+            Hunter.addTreasureToList(treasure);
         }
         else
         {
@@ -62,7 +63,7 @@ public class Treasure {
     // check if all treasures have been found
     public static boolean allTreasuresFound()
     {
-        return foundComputer && foundGold && foundGem;
+        return foundComputer && foundBananas && foundGem;
     }
 
     public String toString()

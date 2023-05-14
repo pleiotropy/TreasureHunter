@@ -10,6 +10,7 @@ public class Hunter
     //instance variables
     private String hunterName;
     private String kit;
+    private static String foundTreasuresList = "";
     private int gold;
 
     //Constructor
@@ -155,6 +156,23 @@ public class Hunter
         return false;
     }
 
+    /* TREASURE METHODS */
+    // treasure accessor
+    public String getFoundTreasuresList() {
+        return foundTreasuresList;
+    }
+
+    // add treasure to foundTreasures
+    public static void addTreasureToList(String foundTreasure) {
+        if (foundTreasuresList.equals("")) {
+            foundTreasuresList += foundTreasure;
+        } else {
+            foundTreasuresList += ", and " + foundTreasure;
+        }
+    }
+
+    // toString
+
     /** Returns a printable representation of the inventory, which
      *  is a list of the items in kit, with the KIT_DELIMITER replaced with a space
      *
@@ -186,6 +204,10 @@ public class Hunter
             str += " and " + getInventory();
         }
         // would like to add a list of treasures the hunter has found
+        if (!foundTreasuresList.equals(""))
+        {
+            str += " and treasure: " + getFoundTreasuresList();
+        }
         return str;
     }
 }
