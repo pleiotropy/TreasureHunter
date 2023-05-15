@@ -12,6 +12,11 @@ public class Town
     private String printMessage;
     private boolean toughTown;
     private boolean huntedForTreasure;
+    private double breakThreshold;
+    private final double EASY_BREAK_THRESHOLD = 0.25;
+    private final double NORMAL_BREAK_THRESHOLD = 0.5;
+    private final double HARD_BREAK_THRESHOLD = 0.75;
+
 
     //Constructor
     /**
@@ -34,6 +39,20 @@ public class Town
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+
+        // set itemBreakThreshold based on difficulty mode
+        if (TreasureHunter.getMode().equals("easy"))
+        {
+            breakThreshold = EASY_BREAK_THRESHOLD;
+        }
+        else if (TreasureHunter.getMode().equals("normal"))
+        {
+            breakThreshold = NORMAL_BREAK_THRESHOLD;
+        }
+        else
+        {
+            breakThreshold = HARD_BREAK_THRESHOLD;
+        }
     }
 
     public String getLatestNews()
@@ -113,8 +132,30 @@ public class Town
         else
         {
             printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
-            int goldDiff = (int)(Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance)
+
+            // set goldDiff and chanceToWin based on difficulty mode
+            int goldDiff;
+            double chanceToWin = Math.random();
+
+            if (TreasureHunter.getMode().equals("easy"))
+            {
+                // goldDiff range = 1-20
+                goldDiff = (int)(Math.random() * 20) + 1;
+                // easier to win brawls
+                chanceToWin += .25;
+            }
+            else if (TreasureHunter.getMode().equals("cheater"))
+            {
+                goldDiff = 100;
+                chanceToWin = 1;
+            }
+            else    // normal and hard modes
+            {
+                // goldDiff range = 1-10
+                goldDiff = (int)(Math.random() * 10) + 1;
+            }
+
+            if (chanceToWin > noTroubleChance)
             {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " +  goldDiff + " gold.";
@@ -123,6 +164,12 @@ public class Town
             else
             {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
+                if (TreasureHunter.getMode().equals("easy"))
+                {
+                    goldDiff = Math.round(goldDiff * 100);
+                    goldDiff /= 100;
+                    goldDiff /= 2;
+                }
                 printMessage += "\nYou lost the brawl and pay " +  goldDiff + " gold.";
                 hunter.changeGold(-1 * goldDiff);
             }
@@ -218,7 +265,7 @@ public class Town
     private boolean checkItemBreak()
     {
         double rand = Math.random();
-        return (rand < 0.5);
+        return (rand < breakThreshold);
     }
 }
 

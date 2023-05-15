@@ -11,7 +11,10 @@ public class TreasureHunter
     //Instance variables
     private Town currentTown;
     private Hunter hunter;
-    private boolean hardMode;
+    private static String mode;
+    private final int EASY_STARTING_GOLD = 15;
+    private final int NORMAL_STARTING_GOLD = 10;
+    private final int HARD_STARTING_GOLD = 10;
 
     //Constructor
     /**
@@ -22,7 +25,7 @@ public class TreasureHunter
         // these will be initialized in the play method
         currentTown = null;
         hunter = null;
-        hardMode = false;
+        mode = "";
     }
 
     // starts the game; this is the only public method
@@ -45,14 +48,33 @@ public class TreasureHunter
         System.out.print("What's your name, Hunter? ");
         String name = scanner.nextLine();
 
-        // set hunter instance variable
-        hunter = new Hunter(name, 10);
-
-        System.out.print("Hard mode? (y/n): ");
-        String hard = scanner.nextLine();
-        if (hard.equals("y") || hard.equals("Y"))
+        System.out.print("(E)asy, (N)ormal, or (H)ard Mode?: ");
+        String chosenMode = scanner.nextLine();
+        if (chosenMode.equalsIgnoreCase("E"))
         {
-            hardMode = true;
+            mode = "easy";
+        }
+        else if (chosenMode.equalsIgnoreCase("H"))
+        {
+            mode = "hard";
+        }
+        else
+        {
+            mode = "normal";
+        }
+
+        // set hunter instance variable
+        if (mode.equals("easy"))
+        {
+            hunter = new Hunter(name, EASY_STARTING_GOLD);
+        }
+        else if (mode.equals("normal"))
+        {
+            hunter = new Hunter(name, NORMAL_STARTING_GOLD);
+        }
+        else
+        {
+            hunter = new Hunter(name, HARD_STARTING_GOLD);
         }
     }
 
@@ -63,7 +85,7 @@ public class TreasureHunter
     {
         double markdown = 0.25;
         double toughness = 0.4;
-        if (hardMode)
+        if (mode.equals("hard"))
         {
             // in hard mode, you get less money back when you sell items
             markdown = 0.5;
@@ -187,6 +209,10 @@ public class TreasureHunter
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public static String getMode() {
+        return mode;
     }
 }
 
