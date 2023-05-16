@@ -12,6 +12,7 @@ public class Shop
     private static final int MACHETE_COST = 6;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
+    private static final int CHEATER_COST = 1;
 
     // instance variables
     private double markdown;
@@ -85,12 +86,23 @@ public class Shop
      */
     public String inventory()
     {
-        String str = "Water: " + WATER_COST + " gold\n";
-        str += "Rope: " + ROPE_COST + " gold\n";
-        str += "Machete: " + MACHETE_COST + " gold\n";
-        str += "Horse: " + HORSE_COST + " gold\n";
-        str += "Boat: " + BOAT_COST + " gold\n";
-
+        String str;
+        if (TreasureHunter.getMode().equals("cheater"))
+        {
+            str = "Water: " + CHEATER_COST + " gold\n";
+            str += "Rope: " + CHEATER_COST + " gold\n";
+            str += "Machete: " + CHEATER_COST + " gold\n";
+            str += "Horse: " + CHEATER_COST + " gold\n";
+            str += "Boat: " + CHEATER_COST + " gold\n";
+        }
+        else
+        {
+            str = "Water: " + WATER_COST + " gold\n";
+            str += "Rope: " + ROPE_COST + " gold\n";
+            str += "Machete: " + MACHETE_COST + " gold\n";
+            str += "Horse: " + HORSE_COST + " gold\n";
+            str += "Boat: " + BOAT_COST + " gold\n";
+        }
         return str;
     }
 
@@ -154,29 +166,36 @@ public class Shop
      */
     public int getCostOfItem(String item)
     {
-        if (item.equals("Water"))
+        if (TreasureHunter.getMode().equals("cheater"))
         {
-            return WATER_COST;
-        }
-        else if (item.equals("Rope"))
-        {
-            return ROPE_COST;
-        }
-        else if (item.equals("Machete"))
-        {
-            return MACHETE_COST;
-        }
-        else if (item.equals("Horse"))
-        {
-            return HORSE_COST;
-        }
-        else if (item.equals("Boat"))
-        {
-            return BOAT_COST;
+            return CHEATER_COST;
         }
         else
         {
-            return 0;
+            if (item.equals("Water"))
+            {
+                return WATER_COST;
+            }
+            else if (item.equals("Rope"))
+            {
+                return ROPE_COST;
+            }
+            else if (item.equals("Machete"))
+            {
+                return MACHETE_COST;
+            }
+            else if (item.equals("Horse"))
+            {
+                return HORSE_COST;
+            }
+            else if (item.equals("Boat"))
+            {
+                return BOAT_COST;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 

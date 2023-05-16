@@ -58,6 +58,10 @@ public class TreasureHunter
         {
             mode = "hard";
         }
+        else if (chosenMode.equalsIgnoreCase("cheater"))
+        {
+            mode = "cheater";
+        }
         else
         {
             mode = "normal";
@@ -68,7 +72,7 @@ public class TreasureHunter
         {
             hunter = new Hunter(name, EASY_STARTING_GOLD);
         }
-        else if (mode.equals("normal"))
+        else if (mode.equals("normal") || mode.equals("cheater"))
         {
             hunter = new Hunter(name, NORMAL_STARTING_GOLD);
         }
